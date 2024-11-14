@@ -7,7 +7,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 RUN apt update \
 && apt install -y init systemd apache2 vim git \
-&& apt-get install -y net-tools iputils-ping curl wget telnet less vim sudo lsb-release gnupg \
+&& apt-get install -y net-tools iputils-ping curl wget telnet less vim sudo lsb-release gnupg gcc \
 && apt-get install -y tzdata locales && locale-gen ja_JP.UTF-8
 
 ENV TZ Asia/Tokyo
@@ -25,13 +25,14 @@ COPY ./html /var/www/html
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# ---- Config for CGI ----
+# ---- Config for CGI and SSI ----
 COPY ./conf-available/ /etc/apache2/conf-available/
 
 RUN chown www-data:www-data /var/www/html/cgi \
     && chmod 755 /var/www/html/cgi \
     && a2enconf cgi-enabled \
-    && a2enmod cgi
+    && a2enmod cgi \
+    && a2enmod include
 
 RUN chmod 755 -R /var/www/html/cgi
 RUN chown $USERNAME:$USERNAME -R /var/www/html/cgi
