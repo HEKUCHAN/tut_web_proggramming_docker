@@ -29,7 +29,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 COPY ./conf-available/ /etc/apache2/conf-available/
 
 RUN chown www-data:www-data /var/www/html/cgi \
-    && chmod 755 /var/www/html/cgi \
+    && chmod 755 -R /var/www/html/cgi \
     && a2enconf cgi-enabled \
     && a2enmod cgi \
     && a2enmod include
