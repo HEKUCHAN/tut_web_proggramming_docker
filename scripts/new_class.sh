@@ -40,13 +40,11 @@ next_number=$(printf "%02d" $((last_number + 1)))
 new_folder="class-$next_number"
 
 if $use_template; then
-  if $exclude_html; then
-    rsync -av --exclude="html" "$template_folder/" "$new_folder"
-    echo "Created folder: $new_folder (copied from $template_folder without html folder)"
-  else
-    cp -r "$template_folder" "$new_folder"
-    echo "Created folder: $new_folder (copied from $template_folder)"
-  fi
+  cp -r "$template_folder" "$new_folder"
+  echo "Created folder: $new_folder (copied from $template_folder)"
+elif $exclude_html; then
+  rsync -av --exclude="html" "$template_folder/" "$new_folder"
+  echo "Created folder: $new_folder (copied from $template_folder without html folder)"
 else
   mkdir "$new_folder"
   echo "Created empty folder: $new_folder"
