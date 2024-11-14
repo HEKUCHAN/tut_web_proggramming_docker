@@ -1,0 +1,13 @@
+services:
+  web:
+    tty: true
+    container_name: apache_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    privileged: true
+    volumes:
+      - ./html:/var/www/html
+      - ./conf-available:/etc/apache2/conf-available
