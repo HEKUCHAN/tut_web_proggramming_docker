@@ -12,7 +12,7 @@ CGIとSSIは設定済です。
 makeコマンドを使って、授業用のフォルダーを作成します。
 
 ```bash
-make new-class --template
+make new-class
 # または、直接シェルファイルを実行することでもできます。
 ./scripts/new_class.sh --template
 ```
